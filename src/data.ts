@@ -1,16 +1,16 @@
-export interface ImageProps {
+export type ImageProps = {
   imageIndex: number;
 }
 
-export interface ImageObject {
-  description: string;
-  url: string;
-  alt: string;
+export type ImageObject = {
+  readonly description: string;
+  readonly url: string;
+  readonly alt: string;
 }
 
-export interface RecommendationObject {
-  location: string;
-  recommendationReason: string;
+export type RecommendationObject = {
+    readonly location: string;
+    readonly recommendationReason: string;
 }
 
 

@@ -4,12 +4,11 @@ import {
   ImageProps,
   ImageObject,
   holidayRecommendations,
-} from "./data.js";
+} from "./data.ts";
 import "./App.css";
 
-function App() {
+function App(): JSX.Element {
   return (
-    <>
       <div>
         <Title />
         <Subtitle />
@@ -17,11 +16,10 @@ function App() {
         <br></br>
         <Recommendations />
       </div>
-    </>
   );
 }
 
-function Title() {
+function Title(): JSX.Element {
   return (
     <div className="title">
       <h1>Bienvenue dans ma galerie</h1>
@@ -30,7 +28,7 @@ function Title() {
   );
 }
 
-function Subtitle() {
+function Subtitle(): JSX.Element {
   return (
     <div className="subtitle">
       <p>Feuilletez mes photos en cliquant sur 'Suivant' en bas</p>
@@ -41,19 +39,19 @@ function Image({ imageIndex }: ImageProps) {
   const image: ImageObject = imageList[imageIndex];
   return (
     <>
-      <img src={image.url} alt={image.alt}></img>
+    <img src={image?.url ?? 'notavailable.jpg'} alt={image?.alt ?? 'Image not available'}></img>
     </>
   );
 }
 
-function Gallery() {
+function Gallery(): JSX.Element {
   const [imageIndex, setImageIndex] = useState<number>(0);
 
-  function handleNextClick() {
-    setImageIndex((prevIndex) => (prevIndex + 1) % imageList.length);
+  function handleNextClick(): void {
+    setImageIndex((prevIndex) => (prevIndex + 1));
   }
-  function handleBackClick() {
-    setImageIndex((prevIndex) => (prevIndex - 1) % imageList.length);
+  function handleBackClick(): void {
+    setImageIndex((prevIndex) => (prevIndex - 1));
   }
 
   return (
@@ -73,11 +71,11 @@ function Gallery() {
   );
 }
 
-function Recommendations() {
+function Recommendations(): JSX.Element {
   const [recommendationShowing, setRecommendationShowing] =
     useState<boolean>(false);
 
-  function toggleRecommendation() {
+  function toggleRecommendation(): void {
     recommendationShowing ? setRecommendationShowing(false) : setRecommendationShowing(true);
     console.log(recommendationShowing);
   }
@@ -89,7 +87,7 @@ function Recommendations() {
       <button onClick={toggleRecommendation}>Cliquez ici.</button>
       {recommendationShowing &&
         holidayRecommendations.map((rec) => (
-          <div className="rec-container">
+          <div className="rec-container" key={rec?.location}>
             <h3>{rec.location}</h3>
             <p>{rec.recommendationReason}</p>
           </div>
